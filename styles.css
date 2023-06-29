@@ -1,0 +1,21 @@
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --bg: #2b2a30;
+    --normal-ring: #17171a;
+    --red-ring: #9d0000;
+    --green-ring: #00aa51;
+    --timer-bg: radial-gradient(
+        71.4% 71.4% at 51.7% 28.6%,
+        #3a393f 0%,
+        #17171a 100%
+    );
+    --font-timer: "Arial", sans-serif;
+    --font-stsp: "Arial", sans-serif;
+}
