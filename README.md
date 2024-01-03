@@ -1,3 +1,3 @@
-Work with Pomodoro
+# Work with Pomodoro
 
 Pomodoro Timer Chrome Extension

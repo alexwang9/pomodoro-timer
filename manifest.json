@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Work with Pomodoro",
+  "version": "1.0",
+  "description": "A Pomodoro study timer extension",
+  "permissions": ["storage"],
+  "action": {
+    "default_icon": "/images/icon-48.png",
+    "default_popup": "index.html",
+    "default_title": "Work with Pomodoro"
+  },
+  "icons": {
+    "48": "/images/icon-48.png"
+  }
+}

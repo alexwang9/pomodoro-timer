@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Pomodoro Timer</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kreon:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Pomodoro Timer</title>
 </head>
 <body>
-    <div class="container">
-        <div class="timer">
-            <div id="time">
-                <span id="minutes">00</span>
-                <span id="colon">:</span>
-                <span id="seconds">10</span>
-            </div>
-            <div id="stsp">START</div>
-            <span id="setting"><i class="fas fa-cog"></i></span>
-        </div> 
+  <div class="container">
+    <div class="header">
+      <h1><span class="work-text">Work</span> with <span class="pomodoro-text">Pomodoro</span></h1>
     </div>
+    <div class="interval-container">
+      <h2>Interval amount</h2>
+    </div>
+    <div class="focus-period-container">
+      <h2>Focus period length</h2>
+    </div>
+    <div class="break-period-container">
+      <h2>Break period length</h2>
+    </div>
+
+    <div class="timer">
+        
+      <div id="time">
+        <span id="minutes">00</span>
+        <span id="colon">:</span>
+        <span id="seconds">10</span>
+      </div>
+      <div id="stsp">START</div>
+      <span id="setting"><i class="fas fa-cog"></i></span>
+    </div> 
+  </div>
 </body>
 </html>
