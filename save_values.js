@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  chrome.storage.local.get('running', (data) => {
+  /*chrome.storage.local.get('running', (data) => {
     if(data.running != undefined){
       if(!data.running) {
         chrome.action.setPopup({popup: 'timer.html'});
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         chrome.action.setPopup({popup: 'start.html'});
       }
     }
-  });
+  });*/
 
   const intervalInput = document.querySelector('.interval-text-box input[type="interval-box"]');
   const focusInput = document.querySelector('.focus-period-container input[type="text"]');
@@ -28,10 +28,14 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const focusHours = focusLength / 60;
+    const focusHours = Math.floor(focusLength / 60);
+    console.log(focusHours);
     const focusMinutes = focusLength % 60;
-    const breakHours = breakLength / 60;
+    console.log(focusMinutes);
+    const breakHours = Math.floor(breakLength / 60);
+    console.log(breakHours);
     const breakMinutes = breakLength % 60;
+    console.log(breakMinutes);
 
     chrome.storage.local.set({focusHours : focusHours}).then(() => {
       console.log("Focus hours is set");
