@@ -21,6 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if(isNaN(intervalAmount) || isNaN(focusLength) || isNaN(breakLength)) {
       alert("Please enter valid numbers in the boxes.");
+      chrome.storage.local.set({running : false}).then(() => {
+        console.log("Timer is not running");
+      })
+
       return;
     }
 
@@ -46,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     chrome.storage.local.set({running : true}).then(() => {
       console.log("Timer is running");
-    })
+    });
 
   });
 });

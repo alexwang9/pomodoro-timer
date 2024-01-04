@@ -1,0 +1,39 @@
+html{
+  width: 300px;
+  height: 450px;
+}
+
+body{
+  font-family: "Kreon", serif;
+}
+
+.container{
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+}
+
+img{
+  height: 65px;
+  width: 65px;
+  padding-top: 30px;
+}
+
+h1{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 55px;
+}
+
+.focus{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  background-color: #ff9a9a;
+  border-radius: 26px;
+}
+
+.session{
+  padding-top: 30px;
+}
