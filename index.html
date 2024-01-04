@@ -10,31 +10,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Kreon:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <title>Pomodoro Timer</title>
 </head>
+
 <body>
   <div class="container">
+
     <div class="header">
       <h1><span class="work-text">Work</span> with <span class="pomodoro-text">Pomodoro</span></h1>
     </div>
+
     <div class="interval-container">
       <h2>Interval amount</h2>
-    </div>
-    <div class="focus-period-container">
-      <h2>Focus period length</h2>
-    </div>
-    <div class="break-period-container">
-      <h2>Break period length</h2>
+      <div class="interval-text-box">
+        <input type="interval-box">
+        <p>intervals</p>
+      </div>
     </div>
 
-    <div class="timer">
-        
-      <div id="time">
-        <span id="minutes">00</span>
-        <span id="colon">:</span>
-        <span id="seconds">10</span>
+    <div class="focus-period-container">
+      <h2>Focus period length</h2>
+      <div class="text-box">
+        <input type="text">
+        <p>min</p>
       </div>
-      <div id="stsp">START</div>
-      <span id="setting"><i class="fas fa-cog"></i></span>
-    </div> 
+    </div>
+
+    <div class="break-period-container">
+      <h2>Break period length</h2>
+      <div class="text-box">
+        <input type="text">
+        <p>min</p>
+      </div>
+    </div>
+
+    <div class="start-button">
+      <button>Start!</button>
+    </div>
+      
   </div>
 </body>
 </html>
