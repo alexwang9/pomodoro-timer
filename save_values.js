@@ -1,13 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
-  /*chrome.storage.local.get('running', (data) => {
-    if(data.running != undefined){
-      if(!data.running) {
-        chrome.action.setPopup({popup: 'timer.html'});
-      } else {
-        chrome.action.setPopup({popup: 'start.html'});
-      }
+  chrome.storage.local.get('running', (data) => {
+    if(data.running == undefined) {
+      chrome.storage.local.set({'running' : false});
     }
-  });*/
+
+    if(data.running) {
+      chrome.action.setPopup({popup: 'timer.html'});
+    } else {
+      chrome.action.setPopup({popup: 'start.html'});
+    }
+  });
 
   const intervalInput = document.querySelector('.interval-text-box input[type="interval-box"]');
   const focusInput = document.querySelector('.focus-period-container input[type="text"]');
@@ -52,15 +54,21 @@ document.addEventListener("DOMContentLoaded", () => {
     chrome.storage.local.set({'intervalAmount' : intervalAmount}).then(() => {
       console.log("Interval amount is set");
     });
-    chrome.storage.local.set({'running' : false}).then(() => {
-      console.log("Timer is not running");
+    chrome.storage.local.set({'running' : true}).then(() => {
+      console.log("Timer is running");
     });
 
-    const currentHour = focusHours;
-    const currentMinute = focusMinutes;
-    const duration = currentHour * 60 * 60 * 1000 + currentMinute * 60 * 1000;
+    const duration = focusHours * 60 * 60 * 1000 + focusMinutes * 60 * 1000;
 
-    chrome.storage.local.set({'currentHour': currentHour, 'currentMinute': currentMinute, 'currentSecond': 0, 'currentInterval': 1, 'intervalType': 'focus', 'duration': duration});
+    chrome.storage.local.set({'currentInterval': 1, 'intervalType': 'focus', 'duration': duration});
 
   });
+
+  chrome.storage.local.set({'running': false});
 });
+
+/*chrome.runtime.onMessage.addListener((request, sender, sendResponse) => { 
+  if (request.popup) {
+    chrome.action.setPopup({ popup: request.popup });
+  }
+});*/
