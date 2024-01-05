@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if(isNaN(intervalAmount) || isNaN(focusLength) || isNaN(breakLength)) {
       alert("Please enter valid numbers in the boxes.");
-      chrome.storage.local.set({running : false}).then(() => {
+      chrome.storage.local.set({'running' : false}).then(() => {
         console.log("Timer is not running");
       })
 
@@ -37,24 +37,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const breakMinutes = breakLength % 60;
     console.log(breakMinutes);
 
-    chrome.storage.local.set({focusHours : focusHours}).then(() => {
+    chrome.storage.local.set({'focusHours' : focusHours}).then(() => {
       console.log("Focus hours is set");
     });
-    chrome.storage.local.set({focusMinutes : focusMinutes}).then(() => {
+    chrome.storage.local.set({'focusMinutes' : focusMinutes}).then(() => {
       console.log("Focus minutes is set");
     });
-    chrome.storage.local.set({breakHours : breakHours}).then(() => {
+    chrome.storage.local.set({'breakHours' : breakHours}).then(() => {
       console.log("Break hours is set");
     });
-    chrome.storage.local.set({breakMinutes : breakMinutes}).then(() => {
+    chrome.storage.local.set({'breakMinutes' : breakMinutes}).then(() => {
       console.log("Break minutes is set");
     });
-    chrome.storage.local.set({intervalAmount : intervalAmount}).then(() => {
+    chrome.storage.local.set({'intervalAmount' : intervalAmount}).then(() => {
       console.log("Interval amount is set");
     });
-    chrome.storage.local.set({running : true}).then(() => {
-      console.log("Timer is running");
+    chrome.storage.local.set({'running' : false}).then(() => {
+      console.log("Timer is not running");
     });
+
+    const currentHour = focusHours;
+    const currentMinute = focusMinutes;
+    const duration = currentHour * 60 * 60 * 1000 + currentMinute * 60 * 1000;
+
+    chrome.storage.local.set({'currentHour': currentHour, 'currentMinute': currentMinute, 'currentSecond': 0, 'currentInterval': 1, 'intervalType': 'focus', 'duration': duration});
 
   });
 });
