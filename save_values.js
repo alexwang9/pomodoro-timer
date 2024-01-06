@@ -31,45 +31,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const focusHours = Math.floor(focusLength / 60);
-    console.log(focusHours);
     const focusMinutes = focusLength % 60;
-    console.log(focusMinutes);
     const breakHours = Math.floor(breakLength / 60);
-    console.log(breakHours);
     const breakMinutes = breakLength % 60;
-    console.log(breakMinutes);
 
-    chrome.storage.local.set({'focusHours' : focusHours}).then(() => {
+    chrome.storage.local.set({'focusHours': focusHours, 'focusMinutes': focusMinutes, 'breakHours': breakHours, 'breakMinutes': breakMinutes, 'intervalAmount': intervalAmount, 'running': true, 'timerDone': false}).then(() => {
       console.log("Focus hours is set");
-    });
-    chrome.storage.local.set({'focusMinutes' : focusMinutes}).then(() => {
-      console.log("Focus minutes is set");
-    });
-    chrome.storage.local.set({'breakHours' : breakHours}).then(() => {
-      console.log("Break hours is set");
-    });
-    chrome.storage.local.set({'breakMinutes' : breakMinutes}).then(() => {
-      console.log("Break minutes is set");
-    });
-    chrome.storage.local.set({'intervalAmount' : intervalAmount}).then(() => {
-      console.log("Interval amount is set");
-    });
-    chrome.storage.local.set({'running' : true}).then(() => {
-      console.log("Timer is running");
     });
 
     const duration = focusHours * 60 * 60 * 1000 + focusMinutes * 60 * 1000;
 
     chrome.storage.local.set({'currentInterval': 1, 'intervalType': 'focus', 'duration': duration, 'time': duration});
+
     chrome.runtime.sendMessage({startTimer: true, duration: duration, intervalType: 'focus', currentInterval: 1, intervalTotal: intervalAmount, focusHours: focusHours, focusMinutes: focusMinutes, breakHours: breakHours, breakMinutes: breakMinutes});
   });
 
   //chrome.storage.local.set({'running': false});
 
 });
-
-/*chrome.runtime.onMessage.addListener((request, sender, sendResponse) => { 
-  if (request.popup) {
-    chrome.action.setPopup({ popup: request.popup });
-  }
-});*/

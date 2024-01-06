@@ -1,19 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   chrome.storage.local.get(['focusHours', 'focusMinutes', 'breakHours', 'breakMinutes', 'intervalAmount', 'currentInterval', 'intervalType', 'duration'], (result) => {
-    const focusHours = result.focusHours;
-    const focusMinutes = result.focusMinutes;
     const breakHours = result.breakHours;
     const breakMinutes = result.breakMinutes;
     const intervalTotal = result.intervalAmount;
     const currentInterval = result.currentInterval;
     const intervalType = result.intervalType;
-    const duration = (result.duration + breakHours * 60 * 60 * 1000 + breakMinutes * 60 * 1000) * intervalTotal;
-    
+    const totalDuration = (result.duration + breakHours * 60 * 60 * 1000 + breakMinutes * 60 * 1000) * intervalTotal;
 
     setTimer(currentInterval, intervalType);
-    startTimer(duration);
+    startTimer(totalDuration);
   });
+
+
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if(message.updateDOM){
+      document.querySelector('.focus').textContent = 'Done!';
+      document.querySelector('.focus').style.background = '#ebcc34';
+      document.querySelector('.focus').style.color = 'black';
+    }
+  });
+
+
 });
 
 function setTimer(currentInterval, intervalType) {
@@ -32,17 +40,21 @@ function setTimer(currentInterval, intervalType) {
   sessionDisplay.textContent = `Session ${currentInterval}`;
 }
 
-function startTimer(duration) {
+function startTimer(totalDuration) {
   const timerDisplay = document.querySelector('h1');
-  var runtime = duration;
-  const intervalId = setInterval(() => {
-    /*chrome.runtime.sendMessage('getTime', (response) => {
-      console.log('received time', response);
-      timerDisplay.textContent = formatTime(response);
-    });*/
+  const typeDisplay = document.querySelector('.focus');
+  const sessionDisplay = document.querySelector('.session');
 
-    chrome.storage.local.get(['time'], (result) => {
+  var runtime = totalDuration + 3000;
+  const intervalId = setInterval(() => {
+
+    chrome.storage.local.get(['time', 'intervalType', 'currentInterval'], (result) => {
       timerDisplay.textContent = formatTime(result.time);
+      typeDisplay.textContent = (result.intervalType === 'focus') ? `Focus📖` : `Break🍵`;
+      typeDisplay.style.background = (result.intervalType === 'focus') ? '#ff9a9a' : '#008a7a';
+      typeDisplay.style.color = (result.intervalType === 'focus') ? 'black' : 'white';
+
+      sessionDisplay.textContent = `Session ${result.currentInterval}`;
     });
 
     runtime -= 1000;
@@ -52,8 +64,6 @@ function startTimer(duration) {
     }
 
   }, 1000);
-
-  chrome.storage.local.set({'intervalId': intervalId, 'running': true});
 }
 
 function formatTime(milliseconds) {
@@ -68,37 +78,10 @@ function padZero(value) {
   return value < 10 ? `0${value}` : value;
 }
 
-
-/*if (remainingTime <= 0) {
-      clearInterval(intervalId);
-
-      if(intervalType === 'focus') {
-        intervalType = 'break';
-        chrome.storage.local.set({ 'intervalType': intervalType });
-
-        setTimer(breakHours * 60 * 60 * 1000 + breakMinutes * 60 * 1000, currentInterval, intervalType);
-        startTimer(breakHours * 60 * 60 * 1000 + breakMinutes * 60 * 1000, intervalType, currentInterval, intervalTotal, focusHours, focusMinutes, breakHours, breakMinutes);
-
-      } else {
-        if(currentInterval == intervalTotal) {
-          document.querySelector('.focus').textContent = `Done!`;
-          document.querySelector('.focus').style.background = '#ebcc34';
-          document.querySelector('.focus').style.color = 'black';
-          chrome.storage.local.set({'running': false});
-          chrome.action.setPopup({popup: 'start.html'});
-          return;
-        }
-
-        currentInterval++;
-        intervalType = 'focus';
-        chrome.storage.local.set({ 'currentInterval': currentInterval, 'intervalType': intervalType});
-
-        setTimer(focusHours * 60 * 60 * 1000 + focusMinutes * 60 * 1000, currentInterval, intervalType);
-        startTimer(focusHours * 60 * 60 * 1000 + focusMinutes * 60 * 1000, intervalType, currentInterval, intervalTotal, focusHours, focusMinutes, breakHours, breakMinutes);
-      }
-
-    } else {
-      timerDisplay.textContent = formatTime(remainingTime);
+/*chrome.storage.local.get(['done'], (result) => {
+    if(result.done) {
+      typeDisplay.style.textContent = 'Done!';
+      typeDisplay.style.background = '#ebcc34';
+      typeDisplay.style.color = 'black';
     }
-
-    chrome.storage.local.set({ 'duration': remainingTime});*/
+  });*/
