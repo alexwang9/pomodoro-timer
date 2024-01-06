@@ -1,16 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  chrome.storage.local.get('running', (data) => {
-    if(data.running === undefined) {
-      chrome.storage.local.set({'running' : false});
-    }
-
-    if(data.running === true) {
-      chrome.action.setPopup({popup: 'timer.html'});
-    } else {
-      chrome.action.setPopup({popup: 'start.html'});
-    }
-  });
-
   const intervalInput = document.querySelector('.interval-text-box input[type="interval-box"]');
   const focusInput = document.querySelector('.focus-period-container input[type="text"]');
   const breakInput = document.querySelector('.break-period-container input[type="text"]');
@@ -46,6 +34,35 @@ document.addEventListener("DOMContentLoaded", () => {
     chrome.runtime.sendMessage({startTimer: true, duration: duration, intervalType: 'focus', currentInterval: 1, intervalTotal: intervalAmount, focusHours: focusHours, focusMinutes: focusMinutes, breakHours: breakHours, breakMinutes: breakMinutes});
   });
 
-  //chrome.storage.local.set({'running': false});
+  /*chrome.storage.local.get('running', (data) => {
+    if(data.running === undefined) {
+      chrome.storage.local.set({'running' : false});
+    }
 
+    if(data.running === true) {
+      chrome.action.setPopup({popup: 'timer.html'});
+    } else {
+      chrome.action.setPopup({popup: 'start.html'});
+    }
+  });*/
+
+  chrome.storage.local.get('running', (data) => {
+    if (data.running === undefined) {
+      chrome.storage.local.set({'running': false}, () => {
+        setPopupPage();
+      });
+    } else {
+      setPopupPage();
+    }
+  });
+
+  function setPopupPage() {
+    chrome.storage.local.get('running', (data) => {
+      if (data.running === true) {
+        chrome.action.setPopup({ popup: 'timer.html' });
+      } else {
+        chrome.action.setPopup({ popup: 'start.html' });
+      }
+    });
+  }
 });

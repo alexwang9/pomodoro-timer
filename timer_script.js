@@ -18,6 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('.focus').textContent = 'Done!';
       document.querySelector('.focus').style.background = '#ebcc34';
       document.querySelector('.focus').style.color = 'black';
+      document.querySelector('h1').textContent = '00:00:00';
+      document.querySelector('.session').textContent = 'Close and reopen to reset timer!'
+      chrome.storage.local.set({ 'running': false });
+
     }
   });
 
@@ -45,7 +49,7 @@ function startTimer(totalDuration) {
   const typeDisplay = document.querySelector('.focus');
   const sessionDisplay = document.querySelector('.session');
 
-  var runtime = totalDuration + 3000;
+  var runtime = totalDuration + 1000;
   const intervalId = setInterval(() => {
 
     chrome.storage.local.get(['time', 'intervalType', 'currentInterval'], (result) => {
@@ -77,11 +81,3 @@ function formatTime(milliseconds) {
 function padZero(value) {
   return value < 10 ? `0${value}` : value;
 }
-
-/*chrome.storage.local.get(['done'], (result) => {
-    if(result.done) {
-      typeDisplay.style.textContent = 'Done!';
-      typeDisplay.style.background = '#ebcc34';
-      typeDisplay.style.color = 'black';
-    }
-  });*/
