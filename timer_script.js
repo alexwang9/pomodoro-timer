@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const intervalType = result.intervalType;
     const duration = (result.duration + breakHours * 60 * 60 * 1000 + breakMinutes * 60 * 1000) * intervalTotal;
     
-    
+
     setTimer(currentInterval, intervalType);
     startTimer(duration);
   });

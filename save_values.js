@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const duration = focusHours * 60 * 60 * 1000 + focusMinutes * 60 * 1000;
 
-    chrome.storage.local.set({'currentInterval': 1, 'intervalType': 'focus', 'duration': duration});
+    chrome.storage.local.set({'currentInterval': 1, 'intervalType': 'focus', 'duration': duration, 'time': duration});
     chrome.runtime.sendMessage({startTimer: true, duration: duration, intervalType: 'focus', currentInterval: 1, intervalTotal: intervalAmount, focusHours: focusHours, focusMinutes: focusMinutes, breakHours: breakHours, breakMinutes: breakMinutes});
   });
 
