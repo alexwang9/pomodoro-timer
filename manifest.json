@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Work with Pomodoro",
-  "version": "1.0",
-  "description": "A Pomodoro study timer extension",
+  "version": "0.0.1",
+  "description": "Time your work with a custom Pomodoro timer!",
   "background": {
     "service_worker": "background.js"
   },
@@ -13,6 +13,7 @@
     "default_title": "Work with Pomodoro"
   },
   "icons": {
-    "48": "/images/icon-48.png"
+    "48": "/images/icon-48.png",
+    "128": "/images/icon-128.png"
   }
 }

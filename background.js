@@ -6,6 +6,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     const breakDuration = request.breakHours * 60 * 60 * 1000 + request.breakMinutes * 60 * 1000;
 
     run(request.duration, request.intervalType, request.intervalTotal, focusDuration, breakDuration);
+
   } 
 });
 
@@ -38,7 +39,8 @@ function run(duration, intervalType, intervalTotal, focusDuration, breakDuration
       console.log("done");
 
     } else {
-      chrome.runtime.sendMessage({updateDOM: true});
+      chrome.storage.local.set({ 'updateDOM': 'true' });
+      //chrome.runtime.sendMessage({updateDOM: true});
       chrome.storage.local.set({ 'running': false });
       console.log ("all iterations done");
     }

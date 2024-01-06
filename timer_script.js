@@ -12,20 +12,31 @@ document.addEventListener('DOMContentLoaded', () => {
     startTimer(totalDuration);
   });
 
-
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if(message.updateDOM){
+  /*chrome.storage.local.get(['updateDom'], (result) => {
+    if(result.updateDOM === 'true') {
+      console.log("here");
+      var myAudio = new Audio(chrome.runtime.getURL("ding.mp3"));
+      myAudio.play();
       document.querySelector('.focus').textContent = 'Done!';
       document.querySelector('.focus').style.background = '#ebcc34';
       document.querySelector('.focus').style.color = 'black';
       document.querySelector('h1').textContent = '00:00:00';
       document.querySelector('.session').textContent = 'Close and reopen to reset timer!'
       chrome.storage.local.set({ 'running': false });
-
     }
-  });
-
-
+  });*/
+  /*chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if(message.updateDOM){
+      var myAudio = new Audio(chrome.runtime.getURL("ding.mp3"));
+      myAudio.play();
+      document.querySelector('.focus').textContent = 'Done!';
+      document.querySelector('.focus').style.background = '#ebcc34';
+      document.querySelector('.focus').style.color = 'black';
+      document.querySelector('h1').textContent = '00:00:00';
+      document.querySelector('.session').textContent = 'Close and reopen to reset timer!'
+      chrome.storage.local.set({ 'running': false });
+    }
+  });*/
 });
 
 function setTimer(currentInterval, intervalType) {
@@ -65,6 +76,18 @@ function startTimer(totalDuration) {
 
     if(runtime === 0){
       clearInterval(intervalId);
+
+
+      console.log("here");
+
+      var myAudio = new Audio(chrome.runtime.getURL("ding.mp3"));
+      myAudio.play();
+      typeDisplay.textContent = `Done!`;
+      typeDisplay.style.background = '#ebcc34';
+      typeDisplay.style.color = 'black';
+      timerDisplay.textContent = `00:00:00`;
+      sessionDisplay.textContent = `Close and reopen to reset timer!`;
+      chrome.storage.local.set({ 'running': false });
     }
 
   }, 1000);

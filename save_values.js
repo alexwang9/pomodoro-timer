@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const breakHours = Math.floor(breakLength / 60);
     const breakMinutes = breakLength % 60;
 
-    chrome.storage.local.set({'focusHours': focusHours, 'focusMinutes': focusMinutes, 'breakHours': breakHours, 'breakMinutes': breakMinutes, 'intervalAmount': intervalAmount, 'running': true, 'timerDone': false}).then(() => {
+    chrome.storage.local.set({'focusHours': focusHours, 'focusMinutes': focusMinutes, 'breakHours': breakHours, 'breakMinutes': breakMinutes, 'intervalAmount': intervalAmount, 'running': true, 'timerDone': false, 'updateDOM': 'false'}).then(() => {
       console.log("Focus hours is set");
     });
 
@@ -33,18 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     chrome.runtime.sendMessage({startTimer: true, duration: duration, intervalType: 'focus', currentInterval: 1, intervalTotal: intervalAmount, focusHours: focusHours, focusMinutes: focusMinutes, breakHours: breakHours, breakMinutes: breakMinutes});
   });
-
-  /*chrome.storage.local.get('running', (data) => {
-    if(data.running === undefined) {
-      chrome.storage.local.set({'running' : false});
-    }
-
-    if(data.running === true) {
-      chrome.action.setPopup({popup: 'timer.html'});
-    } else {
-      chrome.action.setPopup({popup: 'start.html'});
-    }
-  });*/
 
   chrome.storage.local.get('running', (data) => {
     if (data.running === undefined) {
