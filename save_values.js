@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   chrome.storage.local.get('running', (data) => {
-    if(data.running == undefined) {
+    if(data.running === undefined) {
       chrome.storage.local.set({'running' : false});
     }
 
-    if(data.running) {
+    if(data.running === true) {
       chrome.action.setPopup({popup: 'timer.html'});
     } else {
       chrome.action.setPopup({popup: 'start.html'});
@@ -61,10 +61,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const duration = focusHours * 60 * 60 * 1000 + focusMinutes * 60 * 1000;
 
     chrome.storage.local.set({'currentInterval': 1, 'intervalType': 'focus', 'duration': duration});
-
+    chrome.runtime.sendMessage({startTimer: true, duration: duration, intervalType: 'focus', currentInterval: 1, intervalTotal: intervalAmount, focusHours: focusHours, focusMinutes: focusMinutes, breakHours: breakHours, breakMinutes: breakMinutes});
   });
 
-  chrome.storage.local.set({'running': false});
+  //chrome.storage.local.set({'running': false});
+
 });
 
 /*chrome.runtime.onMessage.addListener((request, sender, sendResponse) => { 
