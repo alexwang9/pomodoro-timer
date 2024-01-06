@@ -42,7 +42,6 @@ function run(duration, intervalType, intervalTotal, focusDuration, breakDuration
 function runTimer(duration, onTimerZeroCallback) {
   var time = duration;
   var intervalId = setInterval(() => {
-    time -= 1000;
     console.log(time);
 
     if (time === 0) {
@@ -51,13 +50,16 @@ function runTimer(duration, onTimerZeroCallback) {
       onTimerZeroCallback();
     }
 
+    chrome.storage.local.set({'time': time});
+    time -= 1000;
   }, 1000);
 
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  /*chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message === 'getTime') {
+      console.log("received request");
       sendResponse( time );
     }
-  });
+  });*/
 }
 
 

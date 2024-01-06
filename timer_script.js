@@ -10,17 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const intervalType = result.intervalType;
     const duration = (result.duration + breakHours * 60 * 60 * 1000 + breakMinutes * 60 * 1000) * intervalTotal;
     
-    setTimer(result.duration, currentInterval, intervalType);
+    
+    setTimer(currentInterval, intervalType);
     startTimer(duration);
   });
 });
 
-function setTimer(duration, currentInterval, intervalType) {
+function setTimer(currentInterval, intervalType) {
   const timerDisplay = document.querySelector('h1');
   const typeDisplay = document.querySelector('.focus');
   const sessionDisplay = document.querySelector('.session');
 
-  timerDisplay.textContent = formatTime(duration);
+  chrome.storage.local.get(['time'], (result) => {
+    timerDisplay.textContent = formatTime(result.time);
+  });
 
   typeDisplay.textContent = (intervalType === 'focus') ? `Focus📖` : `Break🍵`;
   typeDisplay.style.background = (intervalType === 'focus') ? '#ff9a9a' : '#008a7a';
@@ -33,15 +36,19 @@ function startTimer(duration) {
   const timerDisplay = document.querySelector('h1');
   var runtime = duration;
   const intervalId = setInterval(() => {
-    chrome.runtime.sendMessage('getTime', (response) => {
+    /*chrome.runtime.sendMessage('getTime', (response) => {
       console.log('received time', response);
       timerDisplay.textContent = formatTime(response);
+    });*/
+
+    chrome.storage.local.get(['time'], (result) => {
+      timerDisplay.textContent = formatTime(result.time);
     });
 
     runtime -= 1000;
 
     if(runtime === 0){
-      return;
+      clearInterval(intervalId);
     }
 
   }, 1000);
